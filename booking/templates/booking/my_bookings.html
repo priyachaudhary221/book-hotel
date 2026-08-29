@@ -1,0 +1,382 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Pre-Reserve | My Bookings</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <img src="https://cdn-icons-png.flaticon.com/128/594/594106.png"
+                 alt="Hotel"
+                 class="logo-icon">
+
+            <span>Pre-Reserve</span>
+
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/book/">
+                Book Room
+            </a>
+
+            <a href="/my-bookings/">
+                My Bookings
+            </a>
+
+            <a href="/logout/">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- MY BOOKINGS -->
+
+    <main class="my-bookings-page">
+
+        <div class="my-bookings-container">
+
+
+            <!-- PAGE HEADING -->
+
+            <div class="booking-icon">
+
+                <img src="https://cdn-icons-png.flaticon.com/128/594/594106.png"
+                     alt="Hotel">
+
+            </div>
+
+
+            <h2>
+                My Bookings
+            </h2>
+
+
+            <p class="booking-subtitle">
+                View and manage your room reservations
+            </p>
+
+
+            <div class="booking-divider"></div>
+
+
+
+            {% if bookings %}
+
+
+                {% for booking in bookings %}
+
+
+                    <!-- PREMIUM BOOKING CARD -->
+
+                    <div class="my-booking-card">
+
+
+                        <!-- CARD TOP -->
+
+                        <div class="my-booking-header">
+
+
+                            <div class="room-info">
+
+                                <span class="booking-label">
+                                    ROOM RESERVATION
+                                </span>
+
+                                <h3>
+                                    🛏️ {{ booking.service.name }}
+                                </h3>
+
+                            </div>
+
+
+                            <span class="booking-status
+                                {% if booking.status == 'Confirmed' %}
+                                    confirmed
+                                {% elif booking.status == 'Cancelled' %}
+                                    cancelled
+                                {% else %}
+                                    pending
+                                {% endif %}
+                            ">
+
+                                {% if booking.status == 'Confirmed' %}
+                                    ✓ Confirmed
+                                {% elif booking.status == 'Cancelled' %}
+                                    ✕ Cancelled
+                                {% else %}
+                                    ● Pending
+                                {% endif %}
+
+                            </span>
+
+
+                        </div>
+
+
+
+                        <!-- GOLD DIVIDER -->
+
+                        <div class="card-line"></div>
+
+
+
+                        <!-- BOOKING DETAILS -->
+
+                        <div class="my-booking-details">
+
+
+                            <div class="booking-detail">
+
+                                <span class="detail-icon">
+                                    📅
+                                </span>
+
+                                <div>
+
+                                    <small>
+                                        CHECK-IN
+                                    </small>
+
+                                    <strong>
+                                        {{ booking.check_in|default:"Not selected" }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="booking-detail">
+
+                                <span class="detail-icon">
+                                    📅
+                                </span>
+
+                                <div>
+
+                                    <small>
+                                        CHECK-OUT
+                                    </small>
+
+                                    <strong>
+                                        {{ booking.check_out|default:"Not selected" }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="booking-detail">
+
+                                <span class="detail-icon">
+                                    🗓️
+                                </span>
+
+                                <div>
+
+                                    <small>
+                                        BOOKING DATE
+                                    </small>
+
+                                    <strong>
+                                        {{ booking.booking_date }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="booking-detail">
+
+                                <span class="detail-icon">
+                                    🕐
+                                </span>
+
+                                <div>
+
+                                    <small>
+                                        BOOKING TIME
+                                    </small>
+
+                                    <strong>
+                                        {{ booking.booking_time }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <!-- CARD FOOTER -->
+
+                        <div class="my-booking-footer">
+
+
+                            <div class="booked-date">
+
+                                <small>
+                                    BOOKED ON
+                                </small>
+
+                                <strong>
+                                    {{ booking.created_at|date:"d M Y, h:i A" }}
+                                </strong>
+
+                            </div>
+
+
+
+                            <div class="booking-action">
+
+
+                                {% if booking.status == 'Pending' %}
+
+                                    <a
+                                        href="{% url 'cancel_booking' booking.id %}"
+                                        class="cancel-booking"
+                                        onclick="return confirm('Are you sure you want to cancel this booking?');"
+                                    >
+
+                                        Cancel Booking
+
+                                    </a>
+
+
+                                {% elif booking.status == 'Confirmed' %}
+
+                                    <span class="confirmed-message">
+
+                                        ✓ Booking Confirmed
+
+                                    </span>
+
+
+                                {% else %}
+
+                                    <span class="cancelled-message">
+
+                                        ✕ Booking Cancelled
+
+                                    </span>
+
+                                {% endif %}
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                {% endfor %}
+
+
+
+            {% else %}
+
+
+                <!-- NO BOOKINGS -->
+
+                <div class="no-bookings">
+
+                    <div class="no-bookings-icon">
+
+                        <img src="https://cdn-icons-png.flaticon.com/128/594/594106.png"
+                             alt="Hotel">
+
+                    </div>
+
+                    <h3>
+                        No Bookings Yet
+                    </h3>
+
+                    <p>
+                        You haven't booked a room yet.
+                    </p>
+
+                    <a href="/book/" class="btn">
+                        Book a Room
+                    </a>
+
+                </div>
+
+
+            {% endif %}
+
+
+        </div>
+
+    </main>
+
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="footer-logo">
+
+            <img src="https://cdn-icons-png.flaticon.com/128/594/594106.png"
+                 alt="Hotel"
+                 class="logo-icon">
+
+            Pre-Reserve
+
+        </div>
+
+        <p>
+            Your comfortable stay starts here.
+        </p>
+
+        <p class="copyright">
+            © 2026 Pre-Reserve. All rights reserved.
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>

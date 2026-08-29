@@ -1,0 +1,116 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Pre-Reserve | Book a Room</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            <span class="logo-icon">🏨</span>
+            <span>Pre-Reserve</span>
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/book/">
+                Book Room
+            </a>
+
+            <a href="/my-bookings/">
+                My Bookings
+            </a>
+
+            <a href="/logout/">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- BOOKING FORM -->
+
+    <main>
+
+        <div class="booking-container">
+
+            <div class="booking-icon">
+                🏨
+            </div>
+
+            <h2>
+                Reserve Your Room
+            </h2>
+
+            <p class="booking-subtitle">
+                Select your room and stay dates
+            </p>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="login-message">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                {{ form.as_p }}
+
+
+                <button type="submit" class="btn">
+
+                    Confirm Booking
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="footer-logo">
+            🏨 Pre-Reserve
+        </div>
+
+        <p>
+            Your comfortable stay starts here.
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,186 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Pre-Reserve | Login</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            <span class="logo-icon">🏨</span>
+            <span>Pre-Reserve</span>
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/register/">
+                Create Account
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- LOGIN -->
+
+    <main>
+
+        <div class="booking-container login-container">
+
+            <div class="booking-icon">
+                🔐
+            </div>
+
+
+            <p class="booking-label">
+                WELCOME BACK
+            </p>
+
+
+            <h2>
+                Login to Pre-Reserve
+            </h2>
+
+
+            <p class="booking-subtitle">
+                Sign in to manage your room reservations
+            </p>
+
+
+            <div class="booking-divider"></div>
+
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div class="login-message">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <div class="form-group">
+
+                    <label for="username">
+                        👤 Username
+                    </label>
+
+                    <input
+                        type="text"
+                        name="username"
+                        id="username"
+                        placeholder="Enter your username"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        🔒 Password
+                    </label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+
+                <button type="submit" class="login-submit">
+
+                    <span>
+                        Login
+                    </span>
+
+                    <span class="arrow">
+                        →
+                    </span>
+
+                </button>
+
+            </form>
+
+
+            <div class="login-register">
+
+                Don't have an account?
+
+                <a href="/register/">
+                    Create Account
+                </a>
+
+            </div>
+
+
+            <div class="booking-note">
+
+                🔒 Your login information is securely protected.
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="footer-logo">
+            🏨 Pre-Reserve
+        </div>
+
+        <p>
+            Your comfortable stay starts here.
+        </p>
+
+        <p class="copyright">
+            © 2026 Pre-Reserve. All rights reserved.
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>

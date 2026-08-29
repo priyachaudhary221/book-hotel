@@ -1,0 +1,192 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Pre-Reserve | Create Account</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            <span class="logo-icon">🏨</span>
+            <span>Pre-Reserve</span>
+        </div>
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/login/">
+                Login
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- REGISTER -->
+
+    <main>
+
+        <div class="booking-container">
+
+            <div class="booking-icon">
+                👤
+            </div>
+
+            <h2>
+                Create Your Account
+            </h2>
+
+            <p class="booking-subtitle">
+                Register now and start your comfortable stay
+            </p>
+
+
+            <div class="booking-divider"></div>
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                {% if form.non_field_errors %}
+
+                    <div class="form-error">
+                        {{ form.non_field_errors }}
+                    </div>
+
+                {% endif %}
+
+
+                <div class="form-group">
+
+                    <label for="{{ form.username.id_for_label }}">
+                        👤 Username
+                    </label>
+
+                    {{ form.username }}
+
+                    {% if form.username.errors %}
+
+                        <small class="field-error">
+                            {{ form.username.errors }}
+                        </small>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="{{ form.email.id_for_label }}">
+                        ✉️ Email Address
+                    </label>
+
+                    {{ form.email }}
+
+                    {% if form.email.errors %}
+
+                        <small class="field-error">
+                            {{ form.email.errors }}
+                        </small>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="{{ form.password.id_for_label }}">
+                        🔒 Password
+                    </label>
+
+                    {{ form.password }}
+
+                    {% if form.password.errors %}
+
+                        <small class="field-error">
+                            {{ form.password.errors }}
+                        </small>
+
+                    {% endif %}
+
+                </div>
+            <button type="submit" class="register-submit">
+                <span>Create Account</span>
+                <span class="arrow">→</span>
+            </button>
+
+
+
+
+            </form>
+
+
+            <div class="register-login">
+
+                Already have an account?
+
+                <a href="/login/">
+                    Login here
+                </a>
+
+            </div>
+
+
+            <div class="booking-note">
+
+                🔒 Your account information is securely protected.
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="footer-logo">
+            🏨 Pre-Reserve
+        </div>
+
+        <p>
+            Your comfortable stay starts here.
+        </p>
+
+        <p class="copyright">
+            © 2026 Pre-Reserve. All rights reserved.
+        </p>
+
+    </footer>
+
+
+</body>
+
+</html>
